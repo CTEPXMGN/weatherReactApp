@@ -39,7 +39,10 @@ function Container() {
   const [tabs, setTabs] = useState(tabsArray);
   const [value, setValue] = useState('');
   const [cityName, setCityName] = useState('');
-  const [cityData, setCityData] = useState(null);
+  const [cityData, setCityData] = useState({
+    cod: '400',
+    message: 'Nothing to geocode',
+  });
 
   function handlerClick(event) {
     const indexTab = event.target.id;
@@ -92,29 +95,27 @@ function TabCards({ tabs, cityData }) {
 }
 
 function TabCard({ tabID, cityData }) {
-  //   console.log(cityData);
-
-  if (cityData === null) {
+  if (cityData.cod === '400') {
     return;
   }
   const SRC_IMG = `
       https://openweathermap.org/img/wn/${cityData.weather[0].icon}@4x.png
       `;
 
-  //   const dateInMsSunrise = cityData.sys.sunrise * 1000;
-  //   const hoursSunrise = new Date(dateInMsSunrise).getHours();
-  //   const minutesSunrise = new Date(dateInMsSunrise).getMinutes();
-  //   const dateInMsSunset = cityData.sys.sunset * 1000;
-  //   const hoursSunset = new Date(dateInMsSunset).getHours();
-  //   const minutesSunset = new Date(dateInMsSunset).getMinutes();
+  const dateInMsSunrise = cityData.sys.sunrise * 1000;
+  const hoursSunrise = new Date(dateInMsSunrise).getHours();
+  const minutesSunrise = new Date(dateInMsSunrise).getMinutes();
+  const dateInMsSunset = cityData.sys.sunset * 1000;
+  const hoursSunset = new Date(dateInMsSunset).getHours();
+  const minutesSunset = new Date(dateInMsSunset).getMinutes();
 
-  //   const arrData = [
-  //     `Температура: ${Math.round(cityData.main.temp)}°`,
-  //     `По ощущениям: ${Math.round(cityData.main.feels_like)}°`,
-  //     `Погода: ${cityData.weather[0].description}`,
-  //     `Восход: ${hoursSunrise}:${minutesSunrise}`,
-  //     `Закат: ${hoursSunset}:${minutesSunset}`,
-  //   ];
+  const arrData = [
+    `Температура: ${Math.round(cityData.main.temp)}°`,
+    `По ощущениям: ${Math.round(cityData.main.feels_like)}°`,
+    `Погода: ${cityData.weather[0].description}`,
+    `Восход: ${hoursSunrise}:${minutesSunrise}`,
+    `Закат: ${hoursSunset}:${minutesSunset}`,
+  ];
 
   let tabElem;
 
@@ -130,7 +131,22 @@ function TabCard({ tabID, cityData }) {
       </>
     );
   } else if (tabID === 1) {
-    tabElem = <>Упс...</>;
+    tabElem = (
+      <>
+        <p className="tab-details__city">{cityData.name}</p>
+        <ul className="tab-details__list">
+          <li className="tab-details__item">{`Температура: ${Math.round(
+            cityData.main.temp
+          )}°`}</li>
+          <li className="tab-details__item">{`По ощущениям: ${Math.round(
+            cityData.main.feels_like
+          )}°`}</li>
+          <li className="tab-details__item">{`Погода: ${cityData.weather[0].description}`}</li>
+          <li className="tab-details__item">{`Восход: ${hoursSunrise}:${minutesSunrise}`}</li>
+          <li className="tab-details__item">{`Закат: ${hoursSunset}:${minutesSunset}`}</li>
+        </ul>
+      </>
+    );
   }
   return tabElem;
 }
@@ -174,7 +190,6 @@ function Form({
     fetch(`${SERVER_URL}?q=${cityName}&appid=${API_KEY}&units=metric&lang=ru`)
       .then((response) => response.json())
       .then(function (json) {
-        // return console.log(json);
         setCityData(json);
       });
     setValue('');
