@@ -90,7 +90,8 @@ function TabCards({ tabs, cityData }) {
         key={tab.id}
         className={tab.styleClassTab + `${tab.isActive ? ' active' : ''}`}
       >
-        <TabCard tabID={tab.tabID} cityData={cityData} />
+        <TabCardNow tabID={tab.tabID} cityData={cityData} />
+        <TabCardDetails tabID={tab.tabID} cityData={cityData} />
       </div>
     );
   });
@@ -98,20 +99,13 @@ function TabCards({ tabs, cityData }) {
   return items;
 }
 
-function TabCard({ tabID, cityData }) {
+function TabCardNow({ tabID, cityData }) {
   if (cityData.cod === '400') {
     return;
   }
   const SRC_IMG = `
       https://openweathermap.org/img/wn/${cityData.weather[0].icon}@4x.png
       `;
-
-  const dateInMsSunrise = cityData.sys.sunrise * 1000;
-  const hoursSunrise = new Date(dateInMsSunrise).getHours();
-  const minutesSunrise = new Date(dateInMsSunrise).getMinutes();
-  const dateInMsSunset = cityData.sys.sunset * 1000;
-  const hoursSunset = new Date(dateInMsSunset).getHours();
-  const minutesSunset = new Date(dateInMsSunset).getMinutes();
 
   let tabElem;
 
@@ -126,7 +120,25 @@ function TabCard({ tabID, cityData }) {
         <img className="tab-now__img" src={SRC_IMG} alt="weather icon" />
       </>
     );
-  } else if (tabID === 1) {
+  }
+  return tabElem;
+}
+
+function TabCardDetails({ tabID, cityData }) {
+  if (cityData.cod === '400') {
+    return;
+  }
+
+  const dateInMsSunrise = cityData.sys.sunrise * 1000;
+  const hoursSunrise = new Date(dateInMsSunrise).getHours();
+  const minutesSunrise = new Date(dateInMsSunrise).getMinutes();
+  const dateInMsSunset = cityData.sys.sunset * 1000;
+  const hoursSunset = new Date(dateInMsSunset).getHours();
+  const minutesSunset = new Date(dateInMsSunset).getMinutes();
+
+  let tabElem;
+
+  if (tabID === 1) {
     tabElem = (
       <>
         <p className="tab-details__city">{cityData.name}</p>
