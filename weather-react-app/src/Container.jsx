@@ -43,6 +43,10 @@ function Container() {
     cod: '400',
     message: 'Nothing to geocode',
   });
+  const [cityDataForecast, setCityDataForecast] = useState({
+    cod: '400',
+    message: 'Nothing to geocode',
+  });
 
   function handlerClick(event) {
     const indexTab = event.target.id;
@@ -59,10 +63,10 @@ function Container() {
         <Form
           value={value}
           setValue={setValue}
-          cityData={cityData}
           setCityData={setCityData}
           cityName={cityName}
           setCityName={setCityName}
+          setCityDataForecast={setCityDataForecast}
         />
         <div className="tabs">
           <TabCards tabs={tabs} cityData={cityData} />
@@ -108,14 +112,6 @@ function TabCard({ tabID, cityData }) {
   const dateInMsSunset = cityData.sys.sunset * 1000;
   const hoursSunset = new Date(dateInMsSunset).getHours();
   const minutesSunset = new Date(dateInMsSunset).getMinutes();
-
-  const arrData = [
-    `Температура: ${Math.round(cityData.main.temp)}°`,
-    `По ощущениям: ${Math.round(cityData.main.feels_like)}°`,
-    `Погода: ${cityData.weather[0].description}`,
-    `Восход: ${hoursSunrise}:${minutesSunrise}`,
-    `Закат: ${hoursSunset}:${minutesSunset}`,
-  ];
 
   let tabElem;
 
@@ -172,15 +168,16 @@ function TabButtons({ tabs, handlerClick }) {
 }
 
 const SERVER_URL = 'http://api.openweathermap.org/data/2.5/weather';
+const SERVER_URL_FORECAST = 'https://api.openweathermap.org/data/2.5/forecast';
 const API_KEY = '0a8c506a0f09e19f0f5a48594460c570';
 
 function Form({
   value,
   setValue,
-  cityData,
   setCityData,
   cityName,
   setCityName,
+  setCityDataForecast,
 }) {
   function changeValue(e) {
     setValue(e.target.value);
@@ -189,9 +186,21 @@ function Form({
   useEffect(() => {
     fetch(`${SERVER_URL}?q=${cityName}&appid=${API_KEY}&units=metric&lang=ru`)
       .then((response) => response.json())
-      .then(function (json) {
-        setCityData(json);
-      });
+      .catch((error) => alert('Ошибочка вышла: ' + error.message))
+      //   .then(function (response) {
+      //     if (response.cod !== 200) {
+      //       alert(response.cod, response.message);
+      //       return;
+      //     }
+      //     return response;
+      //   })
+      .then((json) => setCityData(json));
+    fetch(
+      `${SERVER_URL_FORECAST}?q=${cityName}&appid=${API_KEY}&units=metric&lang=ru`
+    )
+      .then((response) => response.json())
+      .catch((error) => alert('Ошибочка вышла: ' + error.message))
+      .then((json) => setCityDataForecast(json));
     setValue('');
   }, [cityName]);
 
