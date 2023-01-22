@@ -333,7 +333,7 @@ body {
 }
 .tab-forecast__icon {
   position: absolute;
-  bottom: 10px;
+  bottom: 0px;
   right: 10px;
 }
 

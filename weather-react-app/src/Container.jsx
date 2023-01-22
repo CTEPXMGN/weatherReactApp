@@ -33,8 +33,6 @@ const tabsArray = [
   },
 ];
 
-// const initCityData = { name: 'Qwerty', temperature: '17' };
-
 function Container() {
   const [tabs, setTabs] = useState(tabsArray);
   const [value, setValue] = useState('');
@@ -69,7 +67,11 @@ function Container() {
           setCityDataForecast={setCityDataForecast}
         />
         <div className="tabs">
-          <TabCards tabs={tabs} cityData={cityData} />
+          <TabCards
+            tabs={tabs}
+            cityData={cityData}
+            cityDataForecast={cityDataForecast}
+          />
         </div>
         <div className="added-locations">
           <p className="added-locations__title">Избранное:</p>
@@ -83,7 +85,7 @@ function Container() {
   );
 }
 
-function TabCards({ tabs, cityData }) {
+function TabCards({ tabs, cityData, cityDataForecast }) {
   const items = tabs.map((tab) => {
     return (
       <div
@@ -92,6 +94,10 @@ function TabCards({ tabs, cityData }) {
       >
         <TabCardNow tabID={tab.tabID} cityData={cityData} />
         <TabCardDetails tabID={tab.tabID} cityData={cityData} />
+        <TabCardForecast
+          tabID={tab.tabID}
+          cityDataForecast={cityDataForecast}
+        />
       </div>
     );
   });
@@ -100,7 +106,7 @@ function TabCards({ tabs, cityData }) {
 }
 
 function TabCardNow({ tabID, cityData }) {
-  if (cityData.cod === '400') {
+  if (cityData.cod >= '400') {
     return;
   }
   const SRC_IMG = `
@@ -125,7 +131,7 @@ function TabCardNow({ tabID, cityData }) {
 }
 
 function TabCardDetails({ tabID, cityData }) {
-  if (cityData.cod === '400') {
+  if (cityData.cod >= '400') {
     return;
   }
 
@@ -153,6 +159,69 @@ function TabCardDetails({ tabID, cityData }) {
           <li className="tab-details__item">{`Восход: ${hoursSunrise}:${minutesSunrise}`}</li>
           <li className="tab-details__item">{`Закат: ${hoursSunset}:${minutesSunset}`}</li>
         </ul>
+      </>
+    );
+  }
+  return tabElem;
+}
+
+function TabCardForecast({ tabID, cityDataForecast }) {
+  if (cityDataForecast.cod >= '400') {
+    return;
+  }
+  const SRC_IMG_FORECAST = `
+      https://openweathermap.org/img/wn/${cityDataForecast.list[0].weather[0].icon}.png
+      `;
+  const monthes = [
+    'дек',
+    'янв',
+    'фев',
+    'марта',
+    'апр',
+    'мая',
+    'июня',
+    'июля',
+    'авг',
+    'сент',
+    'окт',
+    'нояб',
+  ];
+
+  const dataForecast = cityDataForecast.list;
+  //   console.log(cityDataForecast);
+
+  const forecastCards = dataForecast.map((item, index) => {
+    let month = Number(item.dt_txt.slice(5, 7));
+    let temp = Math.round(item.main.temp);
+    let tempFillsLike = Math.round(item.main.feels_like);
+    return (
+      <div className="tab-forecast__block" key={index}>
+        <p className="tab-forecast__date">{`
+        ${item.dt_txt.slice(8, 10)} ${monthes[month]}
+        `}</p>
+        <p className="tab-forecast__time">{item.dt_txt.slice(11, 16)}</p>
+        <p className="tab-forecast__tesperature">{`Темп-ра: ${temp}°`}</p>
+        <p className="tab-forecast__feels-like">{`Ощущ. как: ${tempFillsLike}°`}</p>
+        <p className="tab-forecast__weather">{item.weather[0].description}</p>
+        <img
+          src={SRC_IMG_FORECAST}
+          alt="icon weather"
+          className="tab-forecast__icon"
+        />
+      </div>
+    );
+  });
+
+  const cityNameForecast = (
+    <p className="tab-forecast__city">{cityDataForecast.city.name}</p>
+  );
+  let tabElem;
+
+  if (tabID === 2) {
+    tabElem = (
+      <>
+        {cityNameForecast}
+        {forecastCards}
       </>
     );
   }
