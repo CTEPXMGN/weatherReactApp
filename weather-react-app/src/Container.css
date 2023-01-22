@@ -200,6 +200,12 @@ body {
 
 .added-cities__item {
   line-height: 40px;
+  max-width: 260px;
+  display: flex;
+  justify-content: space-between;
+}
+.added-cities__item span {
+  cursor: pointer;
 }
 
 .added-cities__item button {
@@ -349,5 +355,11 @@ body {
 .delete-city {
   width: 18px;
   height: 16px;
-  background-image: url(/img/close-icon.svg);
+  margin-top: 13px;
+  margin-right: 3px;
+  background-image: url(./img/close-icon.svg);
+}
+
+.delete-city:hover {
+  cursor: pointer;
 }

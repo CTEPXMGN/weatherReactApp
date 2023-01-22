@@ -1,6 +1,7 @@
 import './Container.css';
 import { nanoid } from 'nanoid';
 import { useState, useEffect } from 'react';
+import { favoriteCities, currentCity } from './storage';
 
 function id() {
   return nanoid();
@@ -45,6 +46,7 @@ function Container() {
     cod: '400',
     message: 'Nothing to geocode',
   });
+  const [citiesFromLS, setCitiesFromLS] = useState(favoriteCities);
 
   function handlerClick(event) {
     const indexTab = event.target.id;
@@ -71,13 +73,19 @@ function Container() {
             tabs={tabs}
             cityData={cityData}
             cityDataForecast={cityDataForecast}
+            setCitiesFromLS={setCitiesFromLS}
           />
         </div>
         <div className="added-locations">
           <p className="added-locations__title">Избранное:</p>
         </div>
         <div className="added-cities">
-          <ul className="added-cities__list" />
+          <ul className="added-cities__list">
+            <AddedCities
+              citiesFromLS={citiesFromLS}
+              setCitiesFromLS={setCitiesFromLS}
+            />
+          </ul>
         </div>
         <TabButtons tabs={tabs} handlerClick={handlerClick} />
       </div>
@@ -85,14 +93,33 @@ function Container() {
   );
 }
 
-function TabCards({ tabs, cityData, cityDataForecast }) {
+function AddedCities({ citiesFromLS, setCitiesFromLS }) {
+  const favoriteList = citiesFromLS.map((item, index) => {
+    return (
+      <li key={index} className="added-cities__item">
+        <span>{item}</span>
+        <button
+          className="delete-city"
+          onClick={() => delFromFavorites(citiesFromLS, item, setCitiesFromLS)}
+        />
+      </li>
+    );
+  });
+  return favoriteList;
+}
+
+function TabCards({ tabs, cityData, cityDataForecast, setCitiesFromLS }) {
   const items = tabs.map((tab) => {
     return (
       <div
         key={tab.id}
         className={tab.styleClassTab + `${tab.isActive ? ' active' : ''}`}
       >
-        <TabCardNow tabID={tab.tabID} cityData={cityData} />
+        <TabCardNow
+          tabID={tab.tabID}
+          cityData={cityData}
+          setCitiesFromLS={setCitiesFromLS}
+        />
         <TabCardDetails tabID={tab.tabID} cityData={cityData} />
         <TabCardForecast
           tabID={tab.tabID}
@@ -105,13 +132,23 @@ function TabCards({ tabs, cityData, cityDataForecast }) {
   return items;
 }
 
-function addToFavorites(city) {
+function addToFavorites(city, setCitiesFromLS) {
   const favoriteCities = new Set(JSON.parse(localStorage.getItem('cities')));
   favoriteCities.add(city);
   localStorage.setItem('cities', JSON.stringify([...favoriteCities]));
+
+  setCitiesFromLS([...favoriteCities]);
 }
 
-function TabCardNow({ tabID, cityData }) {
+function delFromFavorites(cities, elem, setCitiesFromLS) {
+  cities = JSON.parse(localStorage.getItem('cities'));
+  let favoritesCities = cities.filter((item) => item !== elem);
+  localStorage.cities = JSON.stringify(favoritesCities);
+
+  setCitiesFromLS([...favoritesCities]);
+}
+
+function TabCardNow({ tabID, cityData, setCitiesFromLS }) {
   if (cityData.cod >= '400') {
     return;
   }
@@ -131,7 +168,7 @@ function TabCardNow({ tabID, cityData }) {
         <input
           type="button"
           className="tab-now__add"
-          onClick={() => addToFavorites(cityData.name)}
+          onClick={() => addToFavorites(cityData.name, setCitiesFromLS)}
         ></input>
         <img className="tab-now__img" src={SRC_IMG} alt="weather icon" />
       </>
