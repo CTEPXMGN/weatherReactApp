@@ -105,6 +105,12 @@ function TabCards({ tabs, cityData, cityDataForecast }) {
   return items;
 }
 
+function addToFavorites(city) {
+  const favoriteCities = new Set(JSON.parse(localStorage.getItem('cities')));
+  favoriteCities.add(city);
+  localStorage.setItem('cities', JSON.stringify([...favoriteCities]));
+}
+
 function TabCardNow({ tabID, cityData }) {
   if (cityData.cod >= '400') {
     return;
@@ -122,7 +128,11 @@ function TabCardNow({ tabID, cityData }) {
           {Math.round(cityData.main.temp) + '°'}
         </p>
         <p className="tab-now__city">{cityData.name}</p>
-        <input type="button" className="tab-now__add"></input>
+        <input
+          type="button"
+          className="tab-now__add"
+          onClick={() => addToFavorites(cityData.name)}
+        ></input>
         <img className="tab-now__img" src={SRC_IMG} alt="weather icon" />
       </>
     );
@@ -188,7 +198,6 @@ function TabCardForecast({ tabID, cityDataForecast }) {
   ];
 
   const dataForecast = cityDataForecast.list;
-  //   console.log(cityDataForecast);
 
   const forecastCards = dataForecast.map((item, index) => {
     let month = Number(item.dt_txt.slice(5, 7));
