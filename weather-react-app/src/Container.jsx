@@ -47,6 +47,7 @@ function Container() {
     message: 'Nothing to geocode',
   });
   const [citiesFromLS, setCitiesFromLS] = useState(favoriteCities);
+  // const [currentCityLS, setCurrentCityLS] = useState(currentCity);
 
   function handlerClick(event) {
     const indexTab = event.target.id;
@@ -97,7 +98,7 @@ function AddedCities({ citiesFromLS, setCitiesFromLS }) {
   const favoriteList = citiesFromLS.map((item, index) => {
     return (
       <li key={index} className="added-cities__item">
-        <span>{item}</span>
+        <span onClick={() => console.log('!!!')}>{item}</span>
         <button
           className="delete-city"
           onClick={() => delFromFavorites(citiesFromLS, item, setCitiesFromLS)}
@@ -142,10 +143,10 @@ function addToFavorites(city, setCitiesFromLS) {
 
 function delFromFavorites(cities, elem, setCitiesFromLS) {
   cities = JSON.parse(localStorage.getItem('cities'));
-  let favoritesCities = cities.filter((item) => item !== elem);
-  localStorage.cities = JSON.stringify(favoritesCities);
+  let favoriteCities = cities.filter((item) => item !== elem);
+  localStorage.cities = JSON.stringify(favoriteCities);
 
-  setCitiesFromLS([...favoritesCities]);
+  setCitiesFromLS([...favoriteCities]);
 }
 
 function TabCardNow({ tabID, cityData, setCitiesFromLS }) {
@@ -322,6 +323,7 @@ function Form({
       //     return response;
       //   })
       .then((json) => setCityData(json));
+    localStorage.setItem('currentCity', cityName);
     fetch(
       `${SERVER_URL_FORECAST}?q=${cityName}&appid=${API_KEY}&units=metric&lang=ru`
     )
