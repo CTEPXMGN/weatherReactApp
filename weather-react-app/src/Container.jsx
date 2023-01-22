@@ -37,7 +37,7 @@ const tabsArray = [
 function Container() {
   const [tabs, setTabs] = useState(tabsArray);
   const [value, setValue] = useState('');
-  const [cityName, setCityName] = useState('');
+  const [cityName, setCityName] = useState(currentCity);
   const [cityData, setCityData] = useState({
     cod: '400',
     message: 'Nothing to geocode',
@@ -47,7 +47,6 @@ function Container() {
     message: 'Nothing to geocode',
   });
   const [citiesFromLS, setCitiesFromLS] = useState(favoriteCities);
-  // const [currentCityLS, setCurrentCityLS] = useState(currentCity);
 
   function handlerClick(event) {
     const indexTab = event.target.id;
@@ -315,13 +314,13 @@ function Form({
     fetch(`${SERVER_URL}?q=${cityName}&appid=${API_KEY}&units=metric&lang=ru`)
       .then((response) => response.json())
       .catch((error) => alert('Ошибочка вышла: ' + error.message))
-      //   .then(function (response) {
-      //     if (response.cod !== 200) {
-      //       alert(response.cod, response.message);
-      //       return;
-      //     }
-      //     return response;
-      //   })
+      // .then(function (response) {
+      //   if (!response.ok) {
+      //     alert(response.cod, response.message);
+      //     return;
+      //   }
+      //   return response;
+      // })
       .then((json) => setCityData(json));
     localStorage.setItem('currentCity', cityName);
     fetch(
