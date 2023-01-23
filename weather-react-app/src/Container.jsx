@@ -84,6 +84,7 @@ function Container() {
             <AddedCities
               citiesFromLS={citiesFromLS}
               setCitiesFromLS={setCitiesFromLS}
+              setCityName={setCityName}
             />
           </ul>
         </div>
@@ -93,11 +94,11 @@ function Container() {
   );
 }
 
-function AddedCities({ citiesFromLS, setCitiesFromLS }) {
+function AddedCities({ citiesFromLS, setCitiesFromLS, setCityName }) {
   const favoriteList = citiesFromLS.map((item, index) => {
     return (
       <li key={index} className="added-cities__item">
-        <span onClick={() => console.log('!!!')}>{item}</span>
+        <span onClick={() => setCityName(item)}>{item}</span>
         <button
           className="delete-city"
           onClick={() => delFromFavorites(citiesFromLS, item, setCitiesFromLS)}
