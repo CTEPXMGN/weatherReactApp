@@ -1,6 +1,8 @@
 import './Container.css';
 import Form from './Components/Form';
 import AddedCities from './Components/AddedCities';
+import TabCards from './Components/TabCards/TabCards';
+import TabButtons from './Components/TabButtons';
 import { nanoid } from 'nanoid';
 import { useState, useEffect } from 'react';
 import { favoriteCities, currentCity } from './storage';
@@ -155,151 +157,151 @@ function addToFavorites(city, setCitiesFromLS) {
 //   setCitiesFromLS([...favoriteCities]);
 // }
 
-function TabCardNow({ tabID, cityData, setCitiesFromLS }) {
-  if (cityData.cod >= '400') {
-    return;
-  }
-  const SRC_IMG = `
-      https://openweathermap.org/img/wn/${cityData.weather[0].icon}@4x.png
-      `;
+// function TabCardNow({ tabID, cityData, setCitiesFromLS }) {
+//   if (cityData.cod >= '400') {
+//     return;
+//   }
+//   const SRC_IMG = `
+//       https://openweathermap.org/img/wn/${cityData.weather[0].icon}@4x.png
+//       `;
 
-  let tabElem;
+//   let tabElem;
 
-  if (tabID === 0) {
-    tabElem = (
-      <>
-        <p className="tab-now__temperature">
-          {Math.round(cityData.main.temp) + '°'}
-        </p>
-        <p className="tab-now__city">{cityData.name}</p>
-        <input
-          type="button"
-          className="tab-now__add"
-          onClick={() => addToFavorites(cityData.name, setCitiesFromLS)}
-        ></input>
-        <img className="tab-now__img" src={SRC_IMG} alt="weather icon" />
-      </>
-    );
-  }
-  return tabElem;
-}
+//   if (tabID === 0) {
+//     tabElem = (
+//       <>
+//         <p className="tab-now__temperature">
+//           {Math.round(cityData.main.temp) + '°'}
+//         </p>
+//         <p className="tab-now__city">{cityData.name}</p>
+//         <input
+//           type="button"
+//           className="tab-now__add"
+//           onClick={() => addToFavorites(cityData.name, setCitiesFromLS)}
+//         ></input>
+//         <img className="tab-now__img" src={SRC_IMG} alt="weather icon" />
+//       </>
+//     );
+//   }
+//   return tabElem;
+// }
 
-function TabCardDetails({ tabID, cityData }) {
-  if (cityData.cod >= '400') {
-    return;
-  }
+// function TabCardDetails({ tabID, cityData }) {
+//   if (cityData.cod >= '400') {
+//     return;
+//   }
 
-  const dateInMsSunrise = cityData.sys.sunrise * 1000;
-  const hoursSunrise = new Date(dateInMsSunrise).getHours();
-  const minutesSunrise = new Date(dateInMsSunrise).getMinutes();
-  const dateInMsSunset = cityData.sys.sunset * 1000;
-  const hoursSunset = new Date(dateInMsSunset).getHours();
-  const minutesSunset = new Date(dateInMsSunset).getMinutes();
+//   const dateInMsSunrise = cityData.sys.sunrise * 1000;
+//   const hoursSunrise = new Date(dateInMsSunrise).getHours();
+//   const minutesSunrise = new Date(dateInMsSunrise).getMinutes();
+//   const dateInMsSunset = cityData.sys.sunset * 1000;
+//   const hoursSunset = new Date(dateInMsSunset).getHours();
+//   const minutesSunset = new Date(dateInMsSunset).getMinutes();
 
-  let tabElem;
+//   let tabElem;
 
-  if (tabID === 1) {
-    tabElem = (
-      <>
-        <p className="tab-details__city">{cityData.name}</p>
-        <ul className="tab-details__list">
-          <li className="tab-details__item">{`Температура: ${Math.round(
-            cityData.main.temp
-          )}°`}</li>
-          <li className="tab-details__item">{`По ощущениям: ${Math.round(
-            cityData.main.feels_like
-          )}°`}</li>
-          <li className="tab-details__item">{`Погода: ${cityData.weather[0].description}`}</li>
-          <li className="tab-details__item">{`Восход: ${hoursSunrise}:${minutesSunrise}`}</li>
-          <li className="tab-details__item">{`Закат: ${hoursSunset}:${minutesSunset}`}</li>
-        </ul>
-      </>
-    );
-  }
-  return tabElem;
-}
+//   if (tabID === 1) {
+//     tabElem = (
+//       <>
+//         <p className="tab-details__city">{cityData.name}</p>
+//         <ul className="tab-details__list">
+//           <li className="tab-details__item">{`Температура: ${Math.round(
+//             cityData.main.temp
+//           )}°`}</li>
+//           <li className="tab-details__item">{`По ощущениям: ${Math.round(
+//             cityData.main.feels_like
+//           )}°`}</li>
+//           <li className="tab-details__item">{`Погода: ${cityData.weather[0].description}`}</li>
+//           <li className="tab-details__item">{`Восход: ${hoursSunrise}:${minutesSunrise}`}</li>
+//           <li className="tab-details__item">{`Закат: ${hoursSunset}:${minutesSunset}`}</li>
+//         </ul>
+//       </>
+//     );
+//   }
+//   return tabElem;
+// }
 
-function TabCardForecast({ tabID, cityDataForecast }) {
-  if (cityDataForecast.cod >= '400') {
-    return;
-  }
-  const SRC_IMG_FORECAST = `
-      https://openweathermap.org/img/wn/${cityDataForecast.list[0].weather[0].icon}.png
-      `;
-  const monthes = [
-    'дек',
-    'янв',
-    'фев',
-    'марта',
-    'апр',
-    'мая',
-    'июня',
-    'июля',
-    'авг',
-    'сент',
-    'окт',
-    'нояб',
-  ];
+// function TabCardForecast({ tabID, cityDataForecast }) {
+//   if (cityDataForecast.cod >= '400') {
+//     return;
+//   }
+//   const SRC_IMG_FORECAST = `
+//       https://openweathermap.org/img/wn/${cityDataForecast.list[0].weather[0].icon}.png
+//       `;
+//   const monthes = [
+//     'дек',
+//     'янв',
+//     'фев',
+//     'марта',
+//     'апр',
+//     'мая',
+//     'июня',
+//     'июля',
+//     'авг',
+//     'сент',
+//     'окт',
+//     'нояб',
+//   ];
 
-  const dataForecast = cityDataForecast.list;
+//   const dataForecast = cityDataForecast.list;
 
-  const forecastCards = dataForecast.map((item, index) => {
-    let month = Number(item.dt_txt.slice(5, 7));
-    let temp = Math.round(item.main.temp);
-    let tempFillsLike = Math.round(item.main.feels_like);
-    return (
-      <div className="tab-forecast__block" key={index}>
-        <p className="tab-forecast__date">{`
-        ${item.dt_txt.slice(8, 10)} ${monthes[month]}
-        `}</p>
-        <p className="tab-forecast__time">{item.dt_txt.slice(11, 16)}</p>
-        <p className="tab-forecast__tesperature">{`Темп-ра: ${temp}°`}</p>
-        <p className="tab-forecast__feels-like">{`Ощущ. как: ${tempFillsLike}°`}</p>
-        <p className="tab-forecast__weather">{item.weather[0].description}</p>
-        <img
-          src={SRC_IMG_FORECAST}
-          alt="icon weather"
-          className="tab-forecast__icon"
-        />
-      </div>
-    );
-  });
+//   const forecastCards = dataForecast.map((item, index) => {
+//     let month = Number(item.dt_txt.slice(5, 7));
+//     let temp = Math.round(item.main.temp);
+//     let tempFillsLike = Math.round(item.main.feels_like);
+//     return (
+//       <div className="tab-forecast__block" key={index}>
+//         <p className="tab-forecast__date">{`
+//         ${item.dt_txt.slice(8, 10)} ${monthes[month]}
+//         `}</p>
+//         <p className="tab-forecast__time">{item.dt_txt.slice(11, 16)}</p>
+//         <p className="tab-forecast__tesperature">{`Темп-ра: ${temp}°`}</p>
+//         <p className="tab-forecast__feels-like">{`Ощущ. как: ${tempFillsLike}°`}</p>
+//         <p className="tab-forecast__weather">{item.weather[0].description}</p>
+//         <img
+//           src={SRC_IMG_FORECAST}
+//           alt="icon weather"
+//           className="tab-forecast__icon"
+//         />
+//       </div>
+//     );
+//   });
 
-  const cityNameForecast = (
-    <p className="tab-forecast__city">{cityDataForecast.city.name}</p>
-  );
-  let tabElem;
+//   const cityNameForecast = (
+//     <p className="tab-forecast__city">{cityDataForecast.city.name}</p>
+//   );
+//   let tabElem;
 
-  if (tabID === 2) {
-    tabElem = (
-      <>
-        {cityNameForecast}
-        {forecastCards}
-      </>
-    );
-  }
-  return tabElem;
-}
+//   if (tabID === 2) {
+//     tabElem = (
+//       <>
+//         {cityNameForecast}
+//         {forecastCards}
+//       </>
+//     );
+//   }
+//   return tabElem;
+// }
 
-function TabButtons({ tabs, handlerClick }) {
-  const items = tabs.map((tab) => {
-    return (
-      <a
-        href={`#tab_${tab.tabID}`}
-        key={tab.tabID}
-        id={tab.tabID}
-        className={
-          tab.styleClassButton + `${tab.isActive ? ' active-tab' : ''}`
-        }
-        onClick={handlerClick}
-      >
-        {tab.title}
-      </a>
-    );
-  });
+// function TabButtons({ tabs, handlerClick }) {
+//   const items = tabs.map((tab) => {
+//     return (
+//       <a
+//         href={`#tab_${tab.tabID}`}
+//         key={tab.tabID}
+//         id={tab.tabID}
+//         className={
+//           tab.styleClassButton + `${tab.isActive ? ' active-tab' : ''}`
+//         }
+//         onClick={handlerClick}
+//       >
+//         {tab.title}
+//       </a>
+//     );
+//   });
 
-  return items;
-}
+//   return items;
+// }
 
 // const SERVER_URL = 'http://api.openweathermap.org/data/2.5/weather';
 // const SERVER_URL_FORECAST = 'https://api.openweathermap.org/data/2.5/forecast';

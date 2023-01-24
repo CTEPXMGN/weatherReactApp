@@ -1,4 +1,7 @@
-import '../Container.css';
+import './Container.css';
+import TabCardNow from './TabCardNow';
+import TabCardDetails from './TabCardDetails';
+import TabCardForecast from './TabCardForecast';
 
 function TabCards({ tabs, cityData, cityDataForecast, setCitiesFromLS }) {
   const items = tabs.map((tab) => {
