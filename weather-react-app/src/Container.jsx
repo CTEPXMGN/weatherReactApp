@@ -1,4 +1,6 @@
 import './Container.css';
+import Form from './Components/Form';
+import AddedCities from './Components/AddedCities';
 import { nanoid } from 'nanoid';
 import { useState, useEffect } from 'react';
 import { favoriteCities, currentCity } from './storage';
@@ -36,8 +38,9 @@ const tabsArray = [
 
 function Container() {
   const [tabs, setTabs] = useState(tabsArray);
-  const [value, setValue] = useState('');
-  const [cityName, setCityName] = useState(currentCity);
+  // const [value, setValue] = useState('');
+  // const [cityName, setCityName] = useState(currentCity);
+  // const [cityNow, setCityNow] = useState('');
   const [cityData, setCityData] = useState({
     cod: '400',
     message: 'Nothing to geocode',
@@ -61,12 +64,15 @@ function Container() {
     <div className="main">
       <div className="container">
         <Form
-          value={value}
-          setValue={setValue}
+          // value={value}
+          // setValue={setValue}
+          cityData={cityData}
           setCityData={setCityData}
-          cityName={cityName}
-          setCityName={setCityName}
+          // cityName={cityName}
+          // setCityName={setCityName}
           setCityDataForecast={setCityDataForecast}
+          // cityNow={cityNow}
+          // setCityNow={setCityNow}
         />
         <div className="tabs">
           <TabCards
@@ -84,7 +90,7 @@ function Container() {
             <AddedCities
               citiesFromLS={citiesFromLS}
               setCitiesFromLS={setCitiesFromLS}
-              setCityName={setCityName}
+              // setCityName={setCityName}
             />
           </ul>
         </div>
@@ -94,44 +100,44 @@ function Container() {
   );
 }
 
-function AddedCities({ citiesFromLS, setCitiesFromLS, setCityName }) {
-  const favoriteList = citiesFromLS.map((item, index) => {
-    return (
-      <li key={index} className="added-cities__item">
-        <span onClick={() => setCityName(item)}>{item}</span>
-        <button
-          className="delete-city"
-          onClick={() => delFromFavorites(citiesFromLS, item, setCitiesFromLS)}
-        />
-      </li>
-    );
-  });
-  return favoriteList;
-}
+// function AddedCities({ citiesFromLS, setCitiesFromLS, setCityName }) {
+//   const favoriteList = citiesFromLS.map((item, index) => {
+//     return (
+//       <li key={index} className="added-cities__item">
+//         <span onClick={() => setCityName(item)}>{item}</span>
+//         <button
+//           className="delete-city"
+//           onClick={() => delFromFavorites(citiesFromLS, item, setCitiesFromLS)}
+//         />
+//       </li>
+//     );
+//   });
+//   return favoriteList;
+// }
 
-function TabCards({ tabs, cityData, cityDataForecast, setCitiesFromLS }) {
-  const items = tabs.map((tab) => {
-    return (
-      <div
-        key={tab.id}
-        className={tab.styleClassTab + `${tab.isActive ? ' active' : ''}`}
-      >
-        <TabCardNow
-          tabID={tab.tabID}
-          cityData={cityData}
-          setCitiesFromLS={setCitiesFromLS}
-        />
-        <TabCardDetails tabID={tab.tabID} cityData={cityData} />
-        <TabCardForecast
-          tabID={tab.tabID}
-          cityDataForecast={cityDataForecast}
-        />
-      </div>
-    );
-  });
+// function TabCards({ tabs, cityData, cityDataForecast, setCitiesFromLS }) {
+//   const items = tabs.map((tab) => {
+//     return (
+//       <div
+//         key={tab.id}
+//         className={tab.styleClassTab + `${tab.isActive ? ' active' : ''}`}
+//       >
+//         <TabCardNow
+//           tabID={tab.tabID}
+//           cityData={cityData}
+//           setCitiesFromLS={setCitiesFromLS}
+//         />
+//         <TabCardDetails tabID={tab.tabID} cityData={cityData} />
+//         <TabCardForecast
+//           tabID={tab.tabID}
+//           cityDataForecast={cityDataForecast}
+//         />
+//       </div>
+//     );
+//   });
 
-  return items;
-}
+//   return items;
+// }
 
 function addToFavorites(city, setCitiesFromLS) {
   const favoriteCities = new Set(JSON.parse(localStorage.getItem('cities')));
@@ -141,13 +147,13 @@ function addToFavorites(city, setCitiesFromLS) {
   setCitiesFromLS([...favoriteCities]);
 }
 
-function delFromFavorites(cities, elem, setCitiesFromLS) {
-  cities = JSON.parse(localStorage.getItem('cities'));
-  let favoriteCities = cities.filter((item) => item !== elem);
-  localStorage.cities = JSON.stringify(favoriteCities);
+// function delFromFavorites(cities, elem, setCitiesFromLS) {
+//   cities = JSON.parse(localStorage.getItem('cities'));
+//   let favoriteCities = cities.filter((item) => item !== elem);
+//   localStorage.cities = JSON.stringify(favoriteCities);
 
-  setCitiesFromLS([...favoriteCities]);
-}
+//   setCitiesFromLS([...favoriteCities]);
+// }
 
 function TabCardNow({ tabID, cityData, setCitiesFromLS }) {
   if (cityData.cod >= '400') {
@@ -295,60 +301,85 @@ function TabButtons({ tabs, handlerClick }) {
   return items;
 }
 
-const SERVER_URL = 'http://api.openweathermap.org/data/2.5/weather';
-const SERVER_URL_FORECAST = 'https://api.openweathermap.org/data/2.5/forecast';
-const API_KEY = '0a8c506a0f09e19f0f5a48594460c570';
+// const SERVER_URL = 'http://api.openweathermap.org/data/2.5/weather';
+// const SERVER_URL_FORECAST = 'https://api.openweathermap.org/data/2.5/forecast';
+// const API_KEY = '0a8c506a0f09e19f0f5a48594460c570';
 
-function Form({
-  value,
-  setValue,
-  setCityData,
-  cityName,
-  setCityName,
-  setCityDataForecast,
-}) {
-  function changeValue(e) {
-    setValue(e.target.value);
-  }
+// function Form({
+//   value,
+//   setValue,
+//   cityData,
+//   setCityData,
+//   cityName,
+//   setCityName,
+//   setCityDataForecast,
+//   cityNow,
+//   setCityNow,
+// }) {
+//   function changeValue(e) {
+//     setValue(e.target.value);
+//   }
+//   useEffect(
+//     () =>
+//       async function () {
+//         const URL = `${SERVER_URL}?q=${cityName}&appid=${API_KEY}&units=metric&lang=ru`;
+//         try {
+//           let promise = await fetch(URL);
+//           if (promise.cod === 200) {
+//             const result = await promise.json();
+//             setCityNow(result.name);
+//           } else {
+//             console.log('Ошибка');
+//           }
+//         } catch (error) {
+//           console.log(error.stack);
+//         } finally {
+//           setTimeout(() => console.log('Выполнено'), 500);
+//         }
+//       }
+//   );
+//   useEffect(() => {
+//     //   fetch(`${SERVER_URL}?q=${cityName}&appid=${API_KEY}&units=metric&lang=ru`)
+//     //     .then((response) => response.json())
+//     //     .catch((error) => alert('Ошибочка вышла: ' + error.message))
+//     //     // .then(function (response) {
+//     //     //   if (!response.ok) {
+//     //     //     alert(response.cod, response.message);
+//     //     //     return;
+//     //     //   }
+//     //     //   return response;
+//     //     // })
+//     //     .then((json) => {
+//     //       setCityData(json);
+//     //       return json;
+//     //     })
+//     //     .then((json) => setCityNow(json.name));
+//     localStorage.setItem('currentCity', JSON.stringify(cityData.name));
+//     fetch(
+//       `${SERVER_URL_FORECAST}?q=${cityName}&appid=${API_KEY}&units=metric&lang=ru`
+//     )
+//       .then((response) => response.json())
+//       .catch((error) => alert('Ошибочка вышла: ' + error.message))
+//       .then((json) => setCityDataForecast(json));
+//     setValue('');
+//   }, [cityName]);
 
-  useEffect(() => {
-    fetch(`${SERVER_URL}?q=${cityName}&appid=${API_KEY}&units=metric&lang=ru`)
-      .then((response) => response.json())
-      .catch((error) => alert('Ошибочка вышла: ' + error.message))
-      // .then(function (response) {
-      //   if (!response.ok) {
-      //     alert(response.cod, response.message);
-      //     return;
-      //   }
-      //   return response;
-      // })
-      .then((json) => setCityData(json));
-    localStorage.setItem('currentCity', cityName);
-    fetch(
-      `${SERVER_URL_FORECAST}?q=${cityName}&appid=${API_KEY}&units=metric&lang=ru`
-    )
-      .then((response) => response.json())
-      .catch((error) => alert('Ошибочка вышла: ' + error.message))
-      .then((json) => setCityDataForecast(json));
-    setValue('');
-  }, [cityName]);
-
-  return (
-    <form className="find-form" onSubmit={() => setCityName(value)}>
-      <input
-        type="text"
-        value={value}
-        className="find__input"
-        placeholder="Найти город"
-        onChange={(e) => changeValue(e)}
-      />
-      <input
-        type="button"
-        className="find__button"
-        onClick={() => setCityName(value)}
-      />
-    </form>
-  );
-}
+//   return (
+//     <form className="find-form" onSubmit={() => setCityName(value)}>
+//       <input
+//         type="text"
+//         value={value}
+//         className="find__input"
+//         placeholder="Найти город"
+//         onChange={(e) => changeValue(e)}
+//       />
+//       <input
+//         type="button"
+//         className="find__button"
+//         onClick={() => setCityName(value)}
+//       />
+//     </form>
+//   );
+// }
 
 export default Container;
