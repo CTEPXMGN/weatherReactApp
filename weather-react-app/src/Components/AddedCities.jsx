@@ -1,4 +1,4 @@
-import '../Components/Container.css';
+import './Container.css';
 import { useState, useEffect } from 'react';
 
 // function addToFavorites(city, setCitiesFromLS) {
@@ -24,7 +24,7 @@ function AddedCities({ citiesFromLS, setCitiesFromLS }) {
         <span onClick={() => setCityName(item)}>{item}</span>
         <button
           className="delete-city"
-          onClick={() => delFromFavorites(citiesFromLS, item, setCitiesFromLS)}
+          // onClick={() => delFromFavorites(citiesFromLS, item, setCitiesFromLS)}
         />
       </li>
     );

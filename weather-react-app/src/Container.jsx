@@ -40,7 +40,6 @@ const tabsArray = [
 
 function Container() {
   const [tabs, setTabs] = useState(tabsArray);
-  // const [value, setValue] = useState('');
   // const [cityName, setCityName] = useState(currentCity);
   // const [cityNow, setCityNow] = useState('');
   const [cityData, setCityData] = useState({
@@ -66,15 +65,9 @@ function Container() {
     <div className="main">
       <div className="container">
         <Form
-          // value={value}
-          // setValue={setValue}
           cityData={cityData}
           setCityData={setCityData}
-          // cityName={cityName}
-          // setCityName={setCityName}
           setCityDataForecast={setCityDataForecast}
-          // cityNow={cityNow}
-          // setCityNow={setCityNow}
         />
         <div className="tabs">
           <TabCards
@@ -92,7 +85,6 @@ function Container() {
             <AddedCities
               citiesFromLS={citiesFromLS}
               setCitiesFromLS={setCitiesFromLS}
-              // setCityName={setCityName}
             />
           </ul>
         </div>
@@ -101,6 +93,8 @@ function Container() {
     </div>
   );
 }
+
+export default Container;
 
 // function AddedCities({ citiesFromLS, setCitiesFromLS, setCityName }) {
 //   const favoriteList = citiesFromLS.map((item, index) => {
@@ -141,13 +135,13 @@ function Container() {
 //   return items;
 // }
 
-function addToFavorites(city, setCitiesFromLS) {
-  const favoriteCities = new Set(JSON.parse(localStorage.getItem('cities')));
-  favoriteCities.add(city);
-  localStorage.setItem('cities', JSON.stringify([...favoriteCities]));
+// function addToFavorites(city, setCitiesFromLS) {
+//   const favoriteCities = new Set(JSON.parse(localStorage.getItem('cities')));
+//   favoriteCities.add(city);
+//   localStorage.setItem('cities', JSON.stringify([...favoriteCities]));
 
-  setCitiesFromLS([...favoriteCities]);
-}
+//   setCitiesFromLS([...favoriteCities]);
+// }
 
 // function delFromFavorites(cities, elem, setCitiesFromLS) {
 //   cities = JSON.parse(localStorage.getItem('cities'));
@@ -383,5 +377,3 @@ function addToFavorites(city, setCitiesFromLS) {
 //     </form>
 //   );
 // }
-
-export default Container;
