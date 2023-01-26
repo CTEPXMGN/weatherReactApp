@@ -1,7 +1,7 @@
 export { favoriteCities, currentCity };
 
 function getCurrentCity() {
-  return localStorage.getItem('currentCity');
+  return JSON.parse(localStorage.getItem('currentCity'));
 }
 const currentCity = getCurrentCity();
 

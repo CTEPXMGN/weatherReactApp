@@ -357,7 +357,7 @@ body {
   height: 16px;
   margin-top: 13px;
   margin-right: 3px;
-  background-image: url(../img/close-icon.svg);
+  background-image: url(../src/img/close-icon.svg);
 }
 
 .delete-city:hover {

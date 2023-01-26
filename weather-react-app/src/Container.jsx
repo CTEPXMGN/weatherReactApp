@@ -40,8 +40,7 @@ const tabsArray = [
 
 function Container() {
   const [tabs, setTabs] = useState(tabsArray);
-  // const [cityName, setCityName] = useState(currentCity);
-  // const [cityNow, setCityNow] = useState('');
+  const [cityName, setCityName] = useState(currentCity ? currentCity : '');
   const [cityData, setCityData] = useState({
     cod: '400',
     message: 'Nothing to geocode',
@@ -65,6 +64,8 @@ function Container() {
     <div className="main">
       <div className="container">
         <Form
+          cityName={cityName}
+          setCityName={setCityName}
           cityData={cityData}
           setCityData={setCityData}
           setCityDataForecast={setCityDataForecast}
@@ -83,6 +84,7 @@ function Container() {
         <div className="added-cities">
           <ul className="added-cities__list">
             <AddedCities
+              setCityName={setCityName}
               citiesFromLS={citiesFromLS}
               setCitiesFromLS={setCitiesFromLS}
             />
