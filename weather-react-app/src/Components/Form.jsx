@@ -1,33 +1,30 @@
 import '../Container.css';
 import { getWeather, getWeatherForecast } from './getWeather';
 import { useState } from 'react';
-import { favoriteCities, currentCity } from '../storage.js';
+// import { favoriteCities, currentCity } from '../storage.js';
+import { useEffect } from 'react';
+import { currentCity } from '../storage';
 
-function Form({
-  cityName,
-  setCityName,
-  cityData,
-  setCityData,
-  setCityDataForecast,
-}) {
+function Form({ cityName, setCityName, setCityData, setCityDataForecast }) {
   const [value, setValue] = useState('');
 
   function changeValue(event) {
     setValue(event.target.value);
   }
 
-  // if (localStorage.getItem('currentCity')) {
-  //   getWeather(currentCity, setCityData),
-  //     getWeatherForecast(currentCity, setCityDataForecast);
-  // }
+  useEffect(() => {
+    setCityName(value ? value : currentCity),
+      getWeather(value ? value : currentCity, setCityData),
+      getWeatherForecast(value ? value : currentCity, setCityDataForecast);
+  }, []);
 
   return (
     <form
       className="find-form"
       onSubmit={() => {
-        setCityName(value),
-          getWeather(value, setCityData),
-          getWeatherForecast(value, setCityDataForecast),
+        setCityName(value ? value : currentCity),
+          getWeather(value ? value : currentCity, setCityData),
+          getWeatherForecast(value ? value : currentCity, setCityDataForecast),
           setValue('');
       }}
     >
@@ -42,8 +39,8 @@ function Form({
         type="button"
         className="find__button"
         onClick={() => {
-          getWeather(value, setCityData),
-            getWeatherForecast(value, setCityDataForecast),
+          getWeather(cityName, setCityData),
+            getWeatherForecast(cityName, setCityDataForecast),
             setValue('');
         }}
       />

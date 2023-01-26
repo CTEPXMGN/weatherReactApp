@@ -57,7 +57,6 @@ function TabCardForecast({ tabID, cityDataForecast }) {
       <>
         {cityNameForecast}
         {forecastCard}
-        {/* <p>Прогноз</p> */}
       </>
     );
   }
