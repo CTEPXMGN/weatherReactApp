@@ -1,4 +1,4 @@
-import './Container.css';
+import './TabCards.css';
 import TabCardNow from './TabCardNow';
 import TabCardDetails from './TabCardDetails';
 import TabCardForecast from './TabCardForecast';

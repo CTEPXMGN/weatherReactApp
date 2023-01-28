@@ -1,0 +1,20 @@
+.tab-now {
+  position: relative;
+}
+
+.tab__item {
+  display: none;
+  height: 341px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.tab__item::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.active {
+  display: block;
+}

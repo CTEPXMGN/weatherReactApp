@@ -1,4 +1,4 @@
-import '../Container.css';
+import './TabCardDetails.css';
 
 function TabCardDetails({ tabID, cityData }) {
   if (cityData.cod >= '400') {

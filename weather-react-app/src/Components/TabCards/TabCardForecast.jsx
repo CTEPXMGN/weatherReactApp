@@ -1,4 +1,4 @@
-import '../Container.css';
+import './Container.css';
 import { monthes } from './Variables';
 
 function TabCardForecast({ tabID, cityDataForecast }) {
@@ -8,20 +8,6 @@ function TabCardForecast({ tabID, cityDataForecast }) {
   const SRC_IMG_FORECAST = `
           https://openweathermap.org/img/wn/${cityDataForecast.list[0].weather[0].icon}.png
           `;
-  const monthes = [
-    'дек',
-    'янв',
-    'фев',
-    'марта',
-    'апр',
-    'мая',
-    'июня',
-    'июля',
-    'авг',
-    'сент',
-    'окт',
-    'нояб',
-  ];
 
   const dataForecast = cityDataForecast.list;
 

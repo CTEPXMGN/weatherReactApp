@@ -1,0 +1,52 @@
+.tab-forecast__city {
+  margin-left: 18px;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.tab-forecast__block {
+  width: 265px;
+  height: 120px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin: 0 18px 18px 18px;
+  position: relative;
+}
+
+.tab-forecast__date {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.tab-forecast__time {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.tab-forecast__tesperature {
+  position: absolute;
+  left: 10px;
+  bottom: 31px;
+}
+.tab-forecast__feels-like {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}
+.tab-forecast__weather {
+  position: absolute;
+  bottom: 40px;
+  right: 10px;
+  width: 110px;
+  text-align: right;
+}
+.tab-forecast__icon {
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+}

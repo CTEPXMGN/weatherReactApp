@@ -1,4 +1,4 @@
-import '../Container.css';
+import './TabButtons.css';
 
 function TabButtons({ tabs, handlerClick }) {
   const items = tabs.map((tab) => {

@@ -1,4 +1,4 @@
-import '../Components/Container.css';
+import './AddedCities.css';
 import { getWeather, getWeatherForecast } from './getWeather';
 
 function delFromFavorites(cities, elem, setCitiesFromLS) {

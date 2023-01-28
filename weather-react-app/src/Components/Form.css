@@ -1,0 +1,42 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: rgb(31, 20, 6);
+}
+
+.hidden {
+  display: none;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+.find-form {
+  grid-column: span 4;
+  grid-row: span 1;
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.find__input {
+  height: 100%;
+  width: 530px;
+  margin-left: 15px;
+  line-height: 21px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #000;
+}
+
+.find__button {
+  background-image: url(../src/img/add.svg);
+  width: 25px;
+  height: 25px;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  top: 9px;
+  right: 10px;
+  cursor: pointer;
+}

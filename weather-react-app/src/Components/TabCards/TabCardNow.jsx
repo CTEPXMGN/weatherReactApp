@@ -1,4 +1,4 @@
-import '../Container.css';
+import './TabCardNow.css';
 
 function addToFavorites(city, setCitiesFromLS) {
   const favoriteCities = new Set(JSON.parse(localStorage.getItem('cities')));

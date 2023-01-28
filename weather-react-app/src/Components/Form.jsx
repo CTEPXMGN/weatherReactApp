@@ -1,7 +1,6 @@
-import '../Container.css';
+import './Form.css';
 import { getWeather, getWeatherForecast } from './getWeather';
 import { useState } from 'react';
-// import { favoriteCities, currentCity } from '../storage.js';
 import { useEffect } from 'react';
 import { currentCity } from '../storage';
 

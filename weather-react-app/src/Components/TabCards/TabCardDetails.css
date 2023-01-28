@@ -1,0 +1,19 @@
+.tab-details__city {
+  margin-left: 17px;
+  margin-top: 33px;
+  margin-bottom: 23px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.tab-details__list {
+  margin-left: 15px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.tab-details__item {
+  line-height: 40px;
+}

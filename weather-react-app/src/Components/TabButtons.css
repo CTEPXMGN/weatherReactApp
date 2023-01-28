@@ -1,0 +1,17 @@
+.tab {
+  border: 1px solid black;
+  grid-column: span 1;
+  grid-row: span 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.active-tab {
+  color: rgb(250, 236, 218);
+  background-color: #000;
+}
