@@ -144,12 +144,18 @@ body {
 
 .added-cities {
   height: 328px;
-  overflow-y: scroll;
+  overflow: auto;
 }
 
 .added-cities::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  width: 4px;
+}
+
+.added-cities::-webkit-scrollbar-track {
+  background: rgba(250, 236, 218);
+}
+.added-cities::-webkit-scrollbar-thumb {
+  background-color: #000000;
 }
 
 .added-cities__list {

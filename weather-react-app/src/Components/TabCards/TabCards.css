@@ -5,14 +5,19 @@
 .tab__item {
   display: none;
   height: 341px;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
+  overflow-y: auto;
   scrollbar-width: none;
 }
 
 .tab__item::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  width: 4px;
+}
+
+.tab__item::-webkit-scrollbar-track {
+  background: rgba(250, 236, 218);
+}
+.tab__item::-webkit-scrollbar-thumb {
+  background-color: #000000;
 }
 
 .active {

@@ -1,4 +1,4 @@
-import './Container.css';
+import './TabCardForecast.css';
 import { monthes } from './Variables';
 
 function TabCardForecast({ tabID, cityDataForecast }) {
