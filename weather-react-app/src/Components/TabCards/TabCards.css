@@ -15,6 +15,7 @@
 
 .tab__item::-webkit-scrollbar-track {
   background: rgba(250, 236, 218);
+  border-left: 1px solid black;
 }
 .tab__item::-webkit-scrollbar-thumb {
   background-color: #000000;

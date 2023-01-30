@@ -153,6 +153,7 @@ body {
 
 .added-cities::-webkit-scrollbar-track {
   background: rgba(250, 236, 218);
+  border-left: 1px solid black;
 }
 .added-cities::-webkit-scrollbar-thumb {
   background-color: #000000;
