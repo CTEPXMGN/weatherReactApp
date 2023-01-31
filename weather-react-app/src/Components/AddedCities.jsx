@@ -1,6 +1,5 @@
 import './AddedCities.css';
 import { getWeather, getWeatherForecast } from './getWeather';
-import { useDispatch, useSelector } from 'react-redux';
 
 function delFromFavorites(cities, elem, setCitiesFromLS) {
   cities = JSON.parse(localStorage.getItem('cities'));
