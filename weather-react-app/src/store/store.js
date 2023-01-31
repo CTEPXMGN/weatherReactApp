@@ -1,20 +1,12 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { currentCity } from '../storage';
+import { saveCitiesToLS, saveCity } from './reducer';
 
-const defaultState = {
-  name: currentCity,
-};
+const rootReducer = combineReducers({
+  favoriteList: saveCitiesToLS,
+  cityNameNow: saveCity,
+});
 
-const reducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case 'ADD_CITY':
-      return { ...state, name: state.name + '!!!' };
-    case 'DEL_CITY':
-      return { ...state, name: state.name + '!!!' };
+// console.log(saveCity);
 
-    default:
-      return state;
-  }
-};
-
-export const store = createStore(reducer);
+export const store = createStore(rootReducer);
