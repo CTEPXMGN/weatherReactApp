@@ -8,6 +8,11 @@
   cursor: pointer;
 }
 
+.added-cities__item span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .added-cities__item button {
   margin-left: auto;
 }
