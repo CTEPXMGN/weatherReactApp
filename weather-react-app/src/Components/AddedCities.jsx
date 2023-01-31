@@ -1,5 +1,6 @@
 import './AddedCities.css';
 import { getWeather, getWeatherForecast } from './getWeather';
+import { useDispatch, useSelector } from 'react-redux';
 
 function delFromFavorites(cities, elem, setCitiesFromLS) {
   cities = JSON.parse(localStorage.getItem('cities'));
@@ -30,7 +31,10 @@ function AddedCities({
         </span>
         <button
           className="delete-city"
-          onClick={() => delFromFavorites(citiesFromLS, item, setCitiesFromLS)}
+          onClick={() => {
+            delFromFavorites(citiesFromLS, item, setCitiesFromLS);
+            delCity();
+          }}
         />
       </li>
     );
