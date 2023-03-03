@@ -1,12 +1,11 @@
-// import './Container.css';
 import Container from './Container';
 
 function App() {
-    return (
-        <div className="App">
-            <Container />
-        </div>
-    );
+  return (
+    <div className="App">
+      <Container />
+    </div>
+  );
 }
 
 export default App;

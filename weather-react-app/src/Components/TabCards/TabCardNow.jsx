@@ -1,6 +1,4 @@
 import './TabCardNow.css';
-import { LocalStorageName } from '../../store/action';
-import { useSelector, useDispatch } from 'react-redux';
 
 function addToFavorites(city, setCitiesFromLS) {
   const favoriteCities = new Set(JSON.parse(localStorage.getItem('cities')));
@@ -18,16 +16,6 @@ function TabCardNow({ tabID, cityData, setCitiesFromLS }) {
           `;
 
   let tabElem;
-
-  // const list = useSelector((state) => state.cityNameNow);
-  // console.log(list);
-  // const dispatch = useDispatch();
-
-  // function anyFunc(event) {
-  //   dispatch(LocalStorageName(event.target.value));
-  //   console.log(event.target.value);
-  // }
-  // console.log(list);
 
   if (tabID === 0) {
     tabElem = (

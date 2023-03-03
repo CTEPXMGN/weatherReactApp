@@ -1,10 +1,7 @@
 import './Form.css';
 import { getWeather, getWeatherForecast } from './getWeather';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { currentCity } from '../storage';
-import { useSelector, useDispatch } from 'react-redux';
-import { LocalStorageName } from '../store/action';
 
 function Form({ cityName, setCityName, setCityData, setCityDataForecast }) {
   const [value, setValue] = useState('');
@@ -19,18 +16,11 @@ function Form({ cityName, setCityName, setCityData, setCityDataForecast }) {
       getWeatherForecast(value ? value : currentCity, setCityDataForecast);
   }, []);
 
-  const list = useSelector((state) => state.cityNameNow);
-  const dispatch = useDispatch();
-
-  function anyFunc(event) {
-    dispatch(LocalStorageName(event.target.value));
-  }
-  console.log(list);
-
   return (
     <form
       className="find-form"
-      onSubmit={() => {
+      onSubmit={(event) => {
+        event.preventDefault();
         setCityName(value ? value : currentCity),
           getWeather(value ? value : currentCity, setCityData),
           getWeatherForecast(value ? value : currentCity, setCityDataForecast),
@@ -43,15 +33,18 @@ function Form({ cityName, setCityName, setCityData, setCityDataForecast }) {
         className="find__input"
         placeholder="Найти город"
         onChange={(event) => {
-          changeValue(event), anyFunc(event);
+          changeValue(event);
         }}
       />
       <input
         type="button"
         className="find__button"
         onClick={() => {
-          getWeather(cityName, setCityData),
-            getWeatherForecast(cityName, setCityDataForecast),
+          getWeather(value ? value : currentCity, setCityData),
+            getWeatherForecast(
+              value ? value : currentCity,
+              setCityDataForecast
+            ),
             setValue('');
         }}
       />
